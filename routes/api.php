@@ -29,4 +29,10 @@ Route::post("/getColor", [AuthController::class, "getColor"]);
 
 Route::post("/store", [DragonController::class, "store"]);
 Route::post("/index", [DragonController::class, "index"]);
+Route::delete("/destroy/{id}", [DragonController::class, "destroy"]);
+Route::get("/show/{id}", [DragonController::class, "show"]);
+
 Route::put("/color/{id}", [ColorController::class, "update"]);
+Route::post("/colors", [ColorController::class, "storeColor"]);
+Route::post("/indexColor", [ColorController::class, "indexColor"]);
+Route::delete("/destroyColor/{id}", [ColorController::class, "destroyColor"]);

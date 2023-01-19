@@ -28,12 +28,28 @@ class DragonController extends BaseController {
         if( $validator->fails()) {
             return $this->sendError( $validator->errors());
         }
-        $dragon = Dragon::create($input);
-        return $this->sendResponse(new DragonResource($dragon), "Post létrehozva");
+        $dragons = Dragon::create($input);
+        return $this->sendResponse(new DragonResource($dragons), "Post létrehozva");
     }
 
     public function index() {
         $dragons = Dragon::with("color")->get();
         return $this->sendResponse( DragonResource::collection($dragons), "OK");
+    }
+
+    public function destroy($id) {
+        Dragon::destroy($id);
+
+        return $this->sendResponse([], "Post törölve");
+    }
+
+    public function show($id) {
+        $dragon = Dragon::find($id);
+        
+        if(is_null($dragon)) {
+            return $this->sendError("Post nem létezik");
+        }
+
+        return $this->sendResponse( new DragonResource($dragon), "Dragon megjelenitve");
     }
 }

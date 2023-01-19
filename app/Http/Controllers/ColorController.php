@@ -30,4 +30,29 @@ class ColorController extends BaseController{
 
         return $this->sendResponse(new ColorResource($color), "Post frissitve");
     }
+
+    public function storeColor(Request $request) {
+
+        $input = $request->all();
+        $validator = Validator::make( $input, [
+            "color" => "required"
+        ]);
+
+        if( $validator->fails()) {
+            return $this->sendError( $validator->errors());
+        }
+        $color = Color::create($input);
+        return $this->sendResponse(new ColorResource($color), "Post létrehozva");
+    }
+
+    public function indexColor() {
+        $colors = Color::with("color")->get();
+        return $this->sendResponse( ColorResource::collection($colors), "OK");
+    }
+
+    public function destroyColor($id) {
+        Color::destroy($id);
+
+        return $this->sendResponse([], "Post törölve");
+    }
 }
