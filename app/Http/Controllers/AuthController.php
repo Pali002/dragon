@@ -30,7 +30,7 @@ class AuthController extends BaseController {
         $user = User::create($input);
         $success["name"] = $user->name;
 
-        return $this->sendResponse($success, "Sikeres regiosztráció");
+        return $this->sendResponse($success, "Sikeres regisztráció");
     }
 
     public function signIn(Request $request) {

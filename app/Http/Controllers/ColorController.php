@@ -22,7 +22,7 @@ class ColorController extends BaseController{
         ]);
 
         if($validator->fails()) {
-            return $this->sendError($validator-errors());
+            return $this->sendError($validator->errors());
         }
 
         $color = Color::find($id);

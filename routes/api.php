@@ -17,8 +17,10 @@ use App\Http\Controllers\ColorController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([ "middleware" => [ "auth:sanctum" ]], function() {
+    Route::post("/store", [DragonController::class, "store"]);
+    Route::put("/dragon/{id}", [DragonController::class, "update"]);
+    Route::delete("/destroy/{id}", [DragonController::class, "destroy"]);
 });
 
 Route::post("/register", [AuthController::class, "signUp"]);
@@ -27,10 +29,10 @@ Route::post("/logout", [AuthController::class, "logOut"]);
 Route::post("/color", [AuthController::class, "color"]);
 Route::post("/getColor", [AuthController::class, "getColor"]);
 
-Route::post("/store", [DragonController::class, "store"]);
+
 Route::post("/index", [DragonController::class, "index"]);
-Route::delete("/destroy/{id}", [DragonController::class, "destroy"]);
 Route::get("/show/{id}", [DragonController::class, "show"]);
+
 
 Route::put("/color/{id}", [ColorController::class, "update"]);
 Route::post("/colors", [ColorController::class, "storeColor"]);

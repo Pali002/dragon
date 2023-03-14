@@ -37,6 +37,27 @@ class DragonController extends BaseController {
         return $this->sendResponse( DragonResource::collection($dragons), "OK");
     }
 
+    public function update(Request $request, $id) {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+
+            "name" => "required",
+            "age" => "required",
+            "color_id" => "required"
+        ]);
+
+        if( $validator->fails() ) {
+
+            return $this->sendError( $validator->errors());
+        }
+
+        $dragon = Dragon::find($id);
+        $dragon->update($request->all());
+
+        return $this->sendResponse(new DragonResource($dragon), "Frissítve");
+    }
+
     public function destroy($id) {
         Dragon::destroy($id);
 
